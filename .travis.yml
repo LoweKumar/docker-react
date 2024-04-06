@@ -1,0 +1,24 @@
+sudo : required
+services : 
+  - docker
+
+before_install : 
+  - docker build -t lowekumar28/docker-react -f Dockerfile.dev .
+
+script : 
+ - docker run lowekumar28/docker-react npm run test -- --coverage
+
+deploy :
+  provider : elasticbeanstalk
+  region : "ap-south-1"
+  app : "frontend"
+  env : "Frontend-env"
+  bucket : "elasticbeanstalk-ap-south-1-453859411887"
+  bucket_path : "frontend"
+  on : 
+    branch: master
+
+
+
+
+
